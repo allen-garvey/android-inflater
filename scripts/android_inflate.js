@@ -75,6 +75,7 @@ var android_inflate = (function(){
 				hash_array.push(hash);
 			}
 		}
+		return hash_array;
 	}
 
 	//creates object by parsing string for name, datatype and visibility(unused for now)

@@ -44,7 +44,7 @@ $example_xml_input = '<?xml version="1.0" encoding="utf-8"?><resources><string n
                 <li ng-class="{'active' : showTab(1)}"><a href="#" ng-click="setTab(1)">From Variable Declaration</a></li>
             </ul>
         </div>
-        <main ng-controller="VariableInflationController as varCtlr" >
+        <main>
             <section ng-show="showTab(0)">
                 <form class='form-inline'>
                     <div class="form-group">
@@ -54,6 +54,28 @@ $example_xml_input = '<?xml version="1.0" encoding="utf-8"?><resources><string n
                     <div class="form-group">
                         <label for="results2">Generated Code</label>
                         <textarea disabled="disabled" class="results" id="results2" wrap="off" ng-model='xml_output'></textarea>
+                    </div>
+                    
+                    <div class="checkbox">
+                        <input type="checkbox" id="xml_opt_addButtonOnClickListener" ng-model="xml_options.addButtonOnClickListener" />
+                        <label class="checkbox" for="xml_opt_addButtonOnClickListener">Add Button OnClick Listener</label>
+                    </div>
+                    <div class="checkbox">
+                        <input type="checkbox" id="xml_opt_convert_to_camelCase" ng-model="xml_options.camelCase" />
+                        <label class="checkbox" for="xml_opt_convert_to_camelCase">Convert to camelCase</label>
+                    </div>
+                    <div class="checkbox">
+                        <input type="checkbox" id="xml_opt_make_final" ng-model="xml_options.makeFinal" />
+                        <label class="checkbox" for="xml_opt_make_final">Make Final</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="xml_opt_visibility" ng-model="xml_opt_visibility" value="private">private</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="xml_opt_visibility" ng-model="xml_opt_visibility" value="public">public</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="xml_opt_visibility" ng-model="xml_opt_visibility" value="">none</label>
                     </div>
                 </form>
             </section>
