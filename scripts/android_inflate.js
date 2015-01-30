@@ -9,30 +9,28 @@ var android_inflate = (function(){
 
 	//generates inflated code string based on variable type
 	function android_inflate(java_text){
-		var inflated_ui_array = [];
 		var var_array = java_string_to_array_sans_comments(java_text);
 		var hash_array = var_array_to_hash_array(var_array);
-		var len = hash_array.length;
-		for(var i=0;i<len;i++){
-			switch(hash_array[i].type){
+		var inflated_ui_array = hash_array.map(function(var_obj){
+			switch(var_obj.type){
 			case 'invalid':
-				inflated_ui_array.push(get_error_msg(hash_array[i]));
+				return get_error_msg(var_obj);
 				break;
 			case 'comment':
-				inflated_ui_array.push(hash_array[i].name);
+				return var_obj.name;
 				break;
 			case "String":
-				inflated_ui_array.push(unpack_res_string(hash_array[i]));
+				return unpack_res_string(var_obj);
 				break;
 			default:
-				if(hash_array[i].type.match(/\[\]/)){
-					inflated_ui_array.push(unpack_res_array(hash_array[i]));
+				if(var_obj.type.match(/\[\]/)){
+					return unpack_res_array(var_obj);
 				}
 				else{
-					inflated_ui_array.push(unpack_ui_element(hash_array[i]));
+					return unpack_ui_element(var_obj);
 				}
 			}
-		};
+		});
 
 		return inflated_ui_array;
 	}
@@ -63,7 +61,7 @@ var android_inflate = (function(){
 	} 
 
 	function var_array_to_hash_array(var_array){
-		hash_array = [];
+		var hash_array = [];
 		var len = var_array.length;
 		for (var i=0;i<len;i++) {
 			var hash = var_string_to_hash(var_array[i]);
@@ -77,8 +75,6 @@ var android_inflate = (function(){
 				hash_array.push(hash);
 			}
 		}
-
-		return hash_array;
 	}
 
 	//creates object by parsing string for name, datatype and visibility(unused for now)
