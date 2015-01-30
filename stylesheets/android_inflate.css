@@ -1,0 +1,52 @@
+/* line 1, ../sass/android_inflate.scss */
+body {
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 16px;
+}
+
+/* line 5, ../sass/android_inflate.scss */
+header {
+  text-align: center;
+}
+
+/* line 8, ../sass/android_inflate.scss */
+h1 {
+  font-size: 3.157em;
+}
+
+/* line 14, ../sass/android_inflate.scss */
+textarea {
+  font-family: Monaco, Consolas, Inconsolata, "Droid Sans Mono", Menlo, Courier, monospace;
+  font-size: 1em;
+  height: 30em;
+  max-width: 100%;
+  overflow: scroll;
+  border: 1px solid black;
+}
+
+/* line 22, ../sass/android_inflate.scss */
+.input {
+  width: 30em;
+}
+
+/* line 25, ../sass/android_inflate.scss */
+.results {
+  width: 50em;
+}
+
+/* line 28, ../sass/android_inflate.scss */
+label {
+  display: block;
+}
+
+/* line 31, ../sass/android_inflate.scss */
+main {
+  margin: 0 auto;
+  max-width: 82em;
+  text-align: center;
+}
+
+/* line 36, ../sass/android_inflate.scss */
+.button_group {
+  text-align: right;
+}

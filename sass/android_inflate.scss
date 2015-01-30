@@ -1,0 +1,38 @@
+body{
+	font-family:"Helvetica Neue", sans-serif;
+	font-size: 16px;
+}
+header{
+	text-align: center;
+}
+h1{
+	font-size: 3.157em;
+}
+form{
+
+}
+textarea{
+	font-family: Monaco, Consolas, Inconsolata, "Droid Sans Mono", Menlo, Courier, monospace;
+	font-size: 1em;
+	height: 30em;
+	max-width: 100%;
+	overflow: scroll;
+	border: 1px solid black;
+}
+.input{
+	width: 30em;
+}
+.results{
+	width: 50em;
+}
+label{
+	display: block;
+}
+main{
+	margin: 0 auto;
+	max-width: 82em;
+	text-align: center;
+}
+.button_group{
+	text-align: right;
+}
