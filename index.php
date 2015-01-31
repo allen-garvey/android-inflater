@@ -59,7 +59,7 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/resources.xml');
                     </div>
                     <div class="form-group">
                         <label for="results2">Generated Code</label>
-                        <textarea disabled="disabled" class="results" id="results2" wrap="off" ng-model='xml_output'></textarea>
+                        <textarea class="results" id="results2" wrap="off" ng-model='xml_output'></textarea>
                     </div>
                     <div class="checkbox">
                         <input type="checkbox" id="xml_opt_convert_to_camelCase" ng-model="xml_options.camelCase" />
@@ -78,6 +78,10 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/resources.xml');
                         <label class="radio-inline"><input type="radio" name="xml_opt_visibility" ng-model="xml_opt_visibility" value="public">public</label>
                         <label class="radio-inline"><input type="radio" name="xml_opt_visibility" ng-model="xml_opt_visibility" value="">none</label>
                     </div>
+                    <div class="button_group">
+                        <button type="button" class='btn btn-primary' ng-disabled="!xml_output" ng-click="selectResults()">Select Output</button>
+                        <button type="button" class='btn btn-success' ng-click="inflate()">Inflate</button>
+                    </div>
                 </form>
             </section>
 
@@ -89,18 +93,18 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/resources.xml');
                     </div>
                     <div class="form-group">
                         <label for="results">Generated Code</label>
-                		<textarea disabled="disabled" class="results" id="results" wrap="off" ng-model='java_output'></textarea>
+                		<textarea class="results" id="results" wrap="off" ng-model='var_declaration_output'></textarea>
                     </div>
                     <div class="checkbox">
                         <input type="checkbox" id="var_declaration_opt_addButtonOnClickListener" ng-model="var_declaration_options.addButtonOnClickListener" />
                         <label class="checkbox-inline" for="var_declaration_opt_addButtonOnClickListener">Add Button OnClick Listener</label>
                     </div>
+                    <div class="button_group">
+                        <button type="button" class='btn btn-primary' ng-disabled="!var_declaration_output" ng-click="selectResults()">Select Output</button>
+                        <button type="button" class='btn btn-success' ng-click="inflate()">Inflate</button>
+                    </div>
             	</form>
             </section>
-            <div class="button_group">
-                <button type="button" class='btn btn-primary' ng-disabled="!isSelectEnabled" ng-click="selectResults()">Select Output</button>
-                <button type="button" class='btn btn-success' ng-click="inflate()">Inflate</button>
-            </div>
             
         </main>
     	<script type="text/javascript" src="<?= BASE_URL?>scripts/android_inflate.js"></script>
