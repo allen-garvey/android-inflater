@@ -13,12 +13,18 @@ public int[] androidVersionNums;
 private TextView userInstructions;
 
 /*multiple variables*/
-String one, two, three;'; 
+String one, two, three;
+
+//button
+Button someButton;
+'; 
 
 $example_variable_declaration_short = 'String hello_world;';
 
 $example_xml_placeholder = 'Paste a layout or resources (e.g. strings.xml) xml file here';
 $example_xml_input = '<?xml version="1.0" encoding="utf-8"?><resources><string name="hello_world">Hello world</string></resources>';
+$example_xml_input = file_get_contents(ROOT_PATH . 'test_data/layout.xml');
+$example_xml_input = file_get_contents(ROOT_PATH . 'test_data/resources.xml');
 ?>
 
 <!DOCTYPE html>
@@ -84,6 +90,10 @@ $example_xml_input = '<?xml version="1.0" encoding="utf-8"?><resources><string n
                     <div class="form-group">
                         <label for="results">Generated Code</label>
                 		<textarea disabled="disabled" class="results" id="results" wrap="off" ng-model='java_output'></textarea>
+                    </div>
+                    <div class="checkbox">
+                        <input type="checkbox" id="var_declaration_opt_addButtonOnClickListener" ng-model="var_declaration_options.addButtonOnClickListener" />
+                        <label class="checkbox-inline" for="var_declaration_opt_addButtonOnClickListener">Add Button OnClick Listener</label>
                     </div>
             	</form>
             </section>
