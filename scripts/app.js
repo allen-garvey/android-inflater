@@ -20,8 +20,8 @@
 				if($scope.currentTab === 0)  {
 					var options = $scope.xml_options;
 					options.visibility = $scope.xml_opt_visibility;
-					var var_declarations = android_inflate_xml.inflate_xml(document.getElementById('xml_input').value, options);
-					document.getElementById('results2').value = var_declarations + '\n\n' + android_inflate.display_inflate_android_ui(var_declarations, options);
+					var inflated_xml = android_inflate_xml.inflate_xml(document.getElementById('xml_input').value, options);
+					document.getElementById('results2').value = inflated_xml;
 				}
 				else{
 					var options = {};

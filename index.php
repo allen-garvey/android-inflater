@@ -55,27 +55,22 @@ $example_xml_input = '<?xml version="1.0" encoding="utf-8"?><resources><string n
                         <label for="results2">Generated Code</label>
                         <textarea disabled="disabled" class="results" id="results2" wrap="off" ng-model='xml_output'></textarea>
                     </div>
-                    
-                    <div class="checkbox">
-                        <input type="checkbox" id="xml_opt_addButtonOnClickListener" ng-model="xml_options.addButtonOnClickListener" />
-                        <label class="checkbox" for="xml_opt_addButtonOnClickListener">Add Button OnClick Listener</label>
-                    </div>
                     <div class="checkbox">
                         <input type="checkbox" id="xml_opt_convert_to_camelCase" ng-model="xml_options.camelCase" />
-                        <label class="checkbox" for="xml_opt_convert_to_camelCase">Convert to camelCase</label>
+                        <label class="checkbox-inline" for="xml_opt_convert_to_camelCase">Convert to camelCase</label>
+                    </div>
+                    <div class="checkbox">
+                        <input type="checkbox" id="xml_opt_addButtonOnClickListener" ng-model="xml_options.addButtonOnClickListener" />
+                        <label class="checkbox-inline" for="xml_opt_addButtonOnClickListener">Add Button OnClick Listener</label>
                     </div>
                     <div class="checkbox">
                         <input type="checkbox" id="xml_opt_make_final" ng-model="xml_options.makeFinal" />
-                        <label class="checkbox" for="xml_opt_make_final">Make Final</label>
+                        <label class="checkbox-inline" for="xml_opt_make_final">Make Final</label>
                     </div>
-                    <div class="radio">
-                        <label><input type="radio" name="xml_opt_visibility" ng-model="xml_opt_visibility" value="private">private</label>
-                    </div>
-                    <div class="radio">
-                        <label><input type="radio" name="xml_opt_visibility" ng-model="xml_opt_visibility" value="public">public</label>
-                    </div>
-                    <div class="radio">
-                        <label><input type="radio" name="xml_opt_visibility" ng-model="xml_opt_visibility" value="">none</label>
+                    <div class="radio-inline">
+                        <label class="radio-inline"><input type="radio" name="xml_opt_visibility" ng-model="xml_opt_visibility" value="private">private</label>
+                        <label class="radio-inline"><input type="radio" name="xml_opt_visibility" ng-model="xml_opt_visibility" value="public">public</label>
+                        <label class="radio-inline"><input type="radio" name="xml_opt_visibility" ng-model="xml_opt_visibility" value="">none</label>
                     </div>
                 </form>
             </section>
@@ -103,7 +98,7 @@ $example_xml_input = '<?xml version="1.0" encoding="utf-8"?><resources><string n
         <script type="text/javascript">select_textarea('xml_input');
             //console.log(parseXML('<foo><something></something><string>hello</string></foo>').documentElement.childNodes[0].nodeName);
             //console.log(parseXML('<foo><something></something><string>hello</string></foo>').documentElement.childNodes);
-            android_inflate_xml.inflate_xml('<?xml version="1.0" encoding="utf-8"?><resources><string-array name="jokes"><item>If at first you don&#8217;t succeed, call it version 1.0.</item></string-array><string name="app_name">Card</string><string name="name">Allen Garvey</string><string name="dream_job">UX Designer</string><string name="address">136 Redmont Rd.\nStamford, CT\n06903</string><string name="action_settings">Settings</string></resources>',{camelCase : true, visibility : 'public', 'makeFinal' : true});
+            // android_inflate_xml.inflate_xml('<?xml version="1.0" encoding="utf-8"?><resources><string-array name="jokes"><item>If at first you don&#8217;t succeed, call it version 1.0.</item></string-array><string name="app_name">Card</string><string name="name">Allen Garvey</string><string name="dream_job">UX Designer</string><string name="address">136 Redmont Rd.\nStamford, CT\n06903</string><string name="action_settings">Settings</string></resources>',{camelCase : true, visibility : 'public', 'makeFinal' : true});
             //android_inflate_xml.inflate_xml('<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin" android:paddingRight="@dimen/activity_horizontal_margin" android:paddingTop="@dimen/activity_vertical_margin" android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge" android:text="@string/name" android:id="@+id/nameTextView" android:layout_alignParentTop="true" android:layout_alignParentStart="true" android:layout_marginTop="22dp" android:textSize="50sp"/></RelativeLayout>', {camelCase: true, visibility : 'private'});
         </script>
     </body>
