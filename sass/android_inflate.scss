@@ -1,3 +1,8 @@
+$input_width : 30em;
+$output_width : 50em;
+$main_padding : 2em;
+$main_width : $input_width + $output_width + $main_padding;
+
 body{
 	font-family:"Helvetica Neue", sans-serif;
 	font-size: 16px;
@@ -16,23 +21,83 @@ textarea{
 	font-size: 1em;
 	height: 30em;
 	max-width: 100%;
+	width: 100%;
 	overflow: scroll;
 	border: 1px solid black;
+	display: inline-block;
+	margin : 0;
 }
-.input{
-	width: 30em;
+.textarea_container{
+	display: inline-block;
+	margin : 0;
+	padding : 0;
 }
-.results{
-	width: 50em;
+
+form{
+	margin : 0;
+	padding : 0;
 }
+.textareas{
+	width : 100%;
+	padding : 0;
+	margin : 0;
+}
+.results_container{
+	width : 59%;
+	margin : 0;
+	float : right;
+}
+.input_container{
+	width: 40%;
+	margin : 0;
+}
+
 label{
 	display: block;
 }
+.label-inline{
+	display : inline-block;
+	// vertical-align : text-top;
+}
+.controls{
+	margin-right: 1em;
+}
 main{
 	margin: 0 auto;
-	max-width: 82em;
+	max-width: $main_width;
+	width : 98%;
 	text-align: center;
 }
 .button_group{
 	text-align: right;
+	margin-right : 0;
+}
+.control-panel{
+	margin-top : 1em;
+}
+
+@media only screen and (max-width : $main_width) {
+	body{
+		background-color: green;
+	}
+	.textarea_container{
+		display: block;
+	}
+	.input_container, .results_container{
+		width : 100%;
+		float : none;
+	}
+	div.checkbox, .button_group, div.radio-inline{
+		display: block;
+	}
+	.button_group{
+		margin: 1em 0 5em 0;
+	}
+	.controls{
+		margin-left: 2em;
+	}
+	main{
+		width: 95%;
+		margin : 0 1em;
+	}
 }

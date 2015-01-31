@@ -2,8 +2,8 @@
 	var app = angular.module('AndroidInflater', []);
 	app.controller('TabController', ['$scope', function($scope) {
 		$scope.currentTab = 0;
-		$scope.visibility_options = [{label : 'private', value : 'private'}, {label : 'public', value : 'public'}, {label : 'none', value : ''}];
-  		$scope.xml_opt_visibility = $scope.visibility_options[0].value;
+		this.visibility_options = [{label : 'private', value : 'private'}, {label : 'public', value : 'public'}, {label : 'none', value : ''}];
+  		$scope.xml_opt_visibility = this.visibility_options[0].value;
 		$scope.xml_options = {
 			camelCase : false,
 			visibility : $scope.xml_opt_visibility,
