@@ -1,48 +1,16 @@
 var android_inflate = (function(){
 	//main driver function
 	return {
-		display_inflate_android_ui: function (input, options){
-		var inflatedUI = android_inflate(input);
-		return format_inflated_var(inflatedUI);
+		element_array_from_declaration: function (input, options){
+		return get_element_array(input, options);
 		}
 	};
 
 	//generates inflated code string based on variable type
-	function android_inflate(java_text){
+	function get_element_array(java_text, options){
 		var var_array = java_string_to_array_sans_comments(java_text);
 		var hash_array = var_array_to_hash_array(var_array);
-		var inflated_ui_array = hash_array.map(function(var_obj){
-			switch(var_obj.type){
-			case 'invalid':
-				return get_error_msg(var_obj);
-				break;
-			case 'comment':
-				return var_obj.name;
-				break;
-			case "String":
-				return unpack_res_string(var_obj);
-				break;
-			default:
-				if(var_obj.type.match(/\[\]/)){
-					return unpack_res_array(var_obj);
-				}
-				else{
-					return unpack_ui_element(var_obj);
-				}
-			}
-		});
-
-		return inflated_ui_array;
-	}
-
-	//takes array of inflated android element strings and converts it for output
-	function format_inflated_var(var_array){
-		var formatted_var = get_opening_comment();
-		var len = var_array.length;
-		for (var i=0;i<len;i++) {
-			formatted_var = formatted_var + var_array[i] + "\n";
-		};
-		return formatted_var;
+		return hash_array;
 	}
 
 	////******************unused - preserve if decide to preserve comments in generated code**************************************
@@ -61,28 +29,19 @@ var android_inflate = (function(){
 	} 
 
 	function var_array_to_hash_array(var_array){
-		var hash_array = [];
-		var len = var_array.length;
-		for (var i=0;i<len;i++) {
-			var hash = var_string_to_hash(var_array[i]);
-			if(Object.prototype.toString.call(hash) === '[object Array]'){
-				var len2 = hash.length;
-				for(var j=0;j<len2;j++){
-					hash_array.push(hash[j]);
-				}
-			}
-			else{
-				hash_array.push(hash);
-			}
-		}
-		return hash_array;
+		var hash_array = var_array.map(function(var_string){
+			return var_string_to_hash(var_string);
+		});
+		//String one, two, three is returned as ['String one', 'String two', 'String three'] so this flattens the list
+		var merged = [];
+		return merged.concat.apply(merged, hash_array);
 	}
 
 	//creates object by parsing string for name, datatype and visibility(unused for now)
 	function var_string_to_hash(var_string){
 		var var_hash = {};
 		if(var_string.match(/^\/\//)){
-			var_hash.type = "comment";
+			var_hash.comment = true;
 			var_hash.name = var_string;
 			return var_hash;
 		}
@@ -93,15 +52,15 @@ var android_inflate = (function(){
 			return nested_array_dec;
 		}
 		var_split = var_string.split(' ').filter(Boolean); //because was mutilated earlier
-		switch(var_split.length){
-			case 2:
-				//e.g. String name;
-				var_hash.name = var_split[1];
-				var_hash.type = var_split[0];
-				break;
-			default:
-				var_hash.type = "invalid";	
-				var_hash.name = var_string;
+		if(var_split.length === 2){
+			//e.g. String name;
+			var_hash.type = var_split[0];
+			var identifier = get_identifier(var_hash.type);
+			var_hash[identifier] = var_split[1];
+		}
+		else{
+			var_hash.invalid = true;	
+			var_hash.name = var_string;
 		}
 
 		return var_hash;
@@ -115,37 +74,24 @@ var android_inflate = (function(){
 			return false;
 		}
 		var name_split = var_array[1].split(',').filter(Boolean);
-		var len = name_split.length;
-		if(len === 1){
+		if(name_split.length === 1){
 			return false;
 		}
 		else{
-			var var_hash_array = [];
-			for(var i=0;i<len;i++){
-				var_hash_array.push({type: var_array[0], name:name_split[i]});
-			}
+			var type = var_array[0];
+			var identifier =  get_identifier(type);
+			var var_hash_array = name_split.map(function(var_sub_array_element){
+				var var_obj = {'type': type};
+				var_obj[identifier] = var_sub_array_element;
+				return var_obj;	
+			});
 		}
 		return var_hash_array;
 	}
 
-	function unpack_ui_element(var_hash){
-		return var_hash.name + " = (" + var_hash.type + ") findViewById(R.id." + var_hash.name + ");";
+	function get_identifier(type){
+		var identifier = type.match(/^String$|\[\]$/) ? 'name' : 'id';
+		return identifier;
 	}
 
-	function unpack_res_string(var_hash){
-		return var_hash.name + " = getResources().getString(R.string." + var_hash.name + ");";
-	}
-
-	function unpack_res_array(var_hash){
-		var var_type = var_hash.type.replace("[]", "");
-		var_type = var_type.capitalize();
-		return var_hash.name + " = getResources().get" + var_type + "Array(R.array." + var_hash.name + ");";
-	}
-
-	function get_error_msg(error_var){
-		return "//" + error_var.name +  " is not a valid variable declaration";
-	}
-	function get_opening_comment(){
-		return "//Inflate UI\n";
-	}
 })();

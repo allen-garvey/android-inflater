@@ -2,6 +2,10 @@
 
 var android_inflate_xml = (function(){
 	return {'inflate_xml' : function(xmlStr, options){
+			var error = {'declaration' : 'Paste into the input box an Android xml layout or resource file', 'inflated_java' : ''};
+			if(xmlStr.match(/^$|^[\s\t]+$/)){
+				return error;
+			}
 			return inflated_xml(xmlStr, options);
 		},
 		'inflate_element_list' : function(element_list, options){
@@ -12,7 +16,10 @@ var android_inflate_xml = (function(){
 	function element_list_to_inflated_java(element_list, options){
 		var inflated_java = get_opening_comment(options);
 		element_list.map(function(element){
-			if(element.type === 'String'){
+			if(element.invalid){
+				inflated_java = inflated_java + unpack_invalid_data(element, options);
+			}
+			else if(element.type === 'String'){
 				inflated_java = inflated_java + unpack_res_string(element, options);
 			}
 			else if(element.type.match(/\[\]$/)){
@@ -56,17 +63,15 @@ var android_inflate_xml = (function(){
 		return formatted_name + " = getResources().get" + var_type + "Array(R.array." + element.name + ");";
 	}
 
+	function unpack_invalid_data(element, options){
+		return "//" + element.name + " is not a valid declaration";
+	}
+
 	function inflated_xml(xmlStr, options){
 		var element_list = get_element_array(xmlStr, options);
 		var parent_element_name = get_doc_element_type(xmlStr);
-		var declaration_string;
-		if(parent_element_name === 'resources'){
-			declaration_string = declaration_string_from_resources(element_list, options);
-		}
-		else{
-			declaration_string = declaration_string_from_layout(element_list, options);
-		}
-		return declaration_string + '\n\n' + element_list_to_inflated_java(element_list, options);
+		var declaration_string = declaration_string_from_element_list(element_list, options, parent_element_name);
+		return {'declaration' : declaration_string, 'inflated_java' : element_list_to_inflated_java(element_list, options)};
 	}
 
 	function get_doc_element_type(xmlStr){
@@ -79,41 +84,29 @@ var android_inflate_xml = (function(){
 		var node_list = parsed_xml.documentElement.childNodes;
 		var element_list = map_collection(node_list, function(node){
 			if(node.nodeType === Node.TEXT_NODE){return false;}
-			console.log(node.nodeName);
 			var type = parent_element_name === 'resources' && node.nodeName.match(/-array$/) ? xml_array_name_to_java(node.nodeName) : node.nodeName;
 			type = type === 'string' ? 'String' : type;
-			var formatted_id = parent_element_name !== 'resources' ? node.getAttribute('android:id').replace(/@.*\//,'') : '';
+			var id = node.getAttribute('android:id');
+			var formatted_id = id ? id.replace(/@.*\//,'') : '';
 			return {
 				type : type,
 				name : node.getAttribute('name'),
 				id : formatted_id
 			};
 		}).filter(Boolean);
-		console.log(element_list);
 		return element_list;
 	}
 
-
-	function declaration_string_from_resources(element_list, options){
-		var declaration_string = get_string_from_resources_comment(options);
-		element_list.map(function(element){
-			var visibility = options.visibility ? options.visibility + ' ' : '';
-			var name = options.camelCase ? element.name.to_camelCase() : element.name;
-			var makeFinal = options.makeFinal ? 'final ' : '';
-			declaration_string = declaration_string + visibility + makeFinal + element.type + " " + name + ';\n';
-		});
-		return declaration_string;
-	}
-
-	function declaration_string_from_layout(element_list, options){
-		var declaration_string = get_string_from_layout_comment(options);
+	function declaration_string_from_element_list(element_list, options, parent_element_name){
+		var declaration_string = parent_element_name === 'resources' ? get_string_from_resources_comment(options) : get_string_from_layout_comment(options);
 		element_list.map(function(element){
 			var visibility = options.visibility ? options.visibility + ' ' : '';
 			var makeFinal = options.makeFinal ? 'final ' : '';
-			var id = options.camelCase ? element.id.to_camelCase() : element.id;
-			declaration_string = declaration_string + visibility + makeFinal + element.type + " " + id + ';\n';
+			var identifier = element.id || element.name;
+			identifier = options.camelCase ? identifier.to_camelCase() : identifier;
+			declaration_string = declaration_string + visibility + makeFinal + element.type + " " + identifier + ';\n';
 		});
-		return declaration_string;
+		return declaration_string;	
 	}
 
 	//converts string-array to String[]
@@ -123,14 +116,10 @@ var android_inflate_xml = (function(){
 		return java_array_name + '[]';
 	}
 
-
 	function get_string_from_layout_comment(options){
 		return '//declare ui elements\n';
 	}
 	function get_string_from_resources_comment(options){
 		return '//declare resources\n';
 	}
-
-
-
 })();
