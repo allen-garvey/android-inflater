@@ -93,13 +93,15 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/resources.xml');
 
             <section ng-show="showTab(1)">
             	<form class="form-inline">
-                    <div class="textarea_container">
-                        <label for="java_input">Android Variable Declarations</label>
-                		<textarea id="java_input" class="input" wrap="off" placeholder="<?php echo $example_variable_declaration_short; ?>"><?php echo $example_variable_declaration; ?></textarea>
-                    </div>
-                    <div class="textarea_container">
-                        <label for="results">Generated Code</label>
-                		<textarea class="results" id="results" wrap="off" ng-model='var_declaration_output'></textarea>
+                    <div class="textareas">
+                        <div class="textarea_container input_container">
+                            <label for="java_input">Android Variable Declarations</label>
+                    		<textarea id="java_input" class="input" wrap="off" placeholder="<?php echo $example_variable_declaration_short; ?>"><?php echo $example_variable_declaration; ?></textarea>
+                        </div>
+                        <div class="textarea_container results_container">
+                            <label for="results">Generated Code</label>
+                    		<textarea class="results" id="results" wrap="off" ng-model='var_declaration_output'></textarea>
+                        </div>
                     </div>
                     <div class="control-panel">
                         <div class="checkbox">
