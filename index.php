@@ -37,7 +37,7 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/resources.xml');
         <link rel="stylesheet" type="text/css" href="<?= BASE_URL?>stylesheets/bootstrap.min.css"/>
         <link rel="stylesheet" type="text/css" href="<?= BASE_URL?>stylesheets/bootstrap-theme.min.css"/>
         <link rel="stylesheet" type="text/css" href="<?= BASE_URL?>stylesheets/android_inflate.css"/>
-        <script src="<?= BASE_URL?>scripts/js_util.js"></script>
+        <script src="<?= BASE_URL?>scripts/android_inflater_lib/android_inflater_util.js"></script>
         <script src="<?= BASE_URL?>scripts/angular.min.js"></script>
         <script src="<?= BASE_URL?>scripts/app.js"></script>
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -117,8 +117,8 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/resources.xml');
             </section>
             
         </main>
-    	<script type="text/javascript" src="<?= BASE_URL?>scripts/android_inflate.js"></script>
-        <script type="text/javascript" src="<?= BASE_URL?>scripts/android_inflate_xml.js"></script>
+    	<script type="text/javascript" src="<?= BASE_URL?>scripts/android_inflater_lib/android_inflate.js"></script>
+        <script type="text/javascript" src="<?= BASE_URL?>scripts/android_inflater_lib/android_inflate_xml.js"></script>
         <script type="text/javascript">select_textarea('xml_input');
             //console.log(parseXML('<foo><something></something><string>hello</string></foo>').documentElement.childNodes[0].nodeName);
             //console.log(parseXML('<foo><something></something><string>hello</string></foo>').documentElement.childNodes);
