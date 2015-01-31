@@ -13,14 +13,6 @@ var android_inflate = (function(){
 		return hash_array;
 	}
 
-	////******************unused - preserve if decide to preserve comments in generated code**************************************
-	//takes string of java text and returns array of cleaned up variables
-	function java_string_to_array(java_text){
-		//1.adds semicolon to java comments so that they are preserved in split; 2. removes extra white-space between variables; 3. removes extra white-space within variables; 4. splits variables on semi-colon 5.filters out empty strings in array; 
-		var split_text = java_text.replace(/\/\/(.)*\n|\/\/(.)*$/g, "$&;").replace(/[\s]*;[^A-Z\/]*/gi, ';').replace(/\s+/g, ' ').split(';').filter(Boolean);
-		return split_text;
-	}
-
 	//takes string of java text and returns array of cleaned up variables with comments removed
 	function java_string_to_array_sans_comments(java_text){
 		//1.strips multi-line comments (see http://ostermiller.org/findcomment.html) 2.strips beginning space, single-line comments and reserved words as they are unneeded and make parsing later easier 3. removes extra white-space between variables; 4. removes extra white-space within variables; 5. splits variables on semi-colon 6.filters out empty strings in array; 
