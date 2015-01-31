@@ -37,7 +37,7 @@
 				}
 				else{
 					var options = $scope.var_declaration_options;
-					var element_array = android_inflate.element_array_from_declaration(document.getElementById('java_input').value, options);
+					var element_array = java_declaration_parser.element_array_from_declaration(document.getElementById('java_input').value, options);
 					$scope.var_declaration_output = android_inflate_xml.inflate_element_list(element_array, options);
 				}
 				$scope.isSelectEnabled = true;

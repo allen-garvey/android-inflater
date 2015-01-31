@@ -1,4 +1,6 @@
-var android_inflate = (function(){
+//used to turn string of java variable declarations into an array of objects
+//e.g. takes "public final String one; private static TextView two;" and returns [{type : 'TextView', id : 'one'}, {type : 'String', name : 'one'},  {type : 'String', name : 'two'},  {type : 'String', name : 'three'}]
+var java_declaration_parser = (function(){
 	//main driver function
 	return {
 		element_array_from_declaration: function (input, options){
@@ -14,22 +16,23 @@ var android_inflate = (function(){
 	}
 
 	//takes string of java text and returns array of cleaned up variables with comments removed
+	//e.g. "public final String one; private static TextView two;" and returns ['String one', 'TextView two']
 	function java_string_to_array_sans_comments(java_text){
 		//1.strips multi-line comments (see http://ostermiller.org/findcomment.html) 2.strips beginning space, single-line comments and reserved words as they are unneeded and make parsing later easier 3. removes extra white-space between variables; 4. removes extra white-space within variables; 5. splits variables on semi-colon 6.filters out empty strings in array; 
 		var split_text = java_text.replace(/\/\*([^*]|[\r\n]|(\*+([^*\/]|[\r\n])))*\*+\//g, ' ').replace(/\/\/(.)*\n|\/\/(.)*$|\bstatic\b|\bfinal\b|\bpublic\b|\bprivate\b|\bprotected\b|^\s+/g, "").replace(/[\s]*;[^A-Z\/]*/gi, ';').replace(/\s+/g, ' ').split(';').filter(Boolean);
 		return split_text;
 	} 
-
+	//takes array of split java variable e.g. ['TextView one', 'String one, two, three'] and returns [{type : 'TextView', id : 'one'}, {type : 'String', name : 'one'},  {type : 'String', name : 'two'},  {type : 'String', name : 'three'}]
 	function var_array_to_hash_array(var_array){
 		var hash_array = var_array.map(function(var_string){
 			return var_string_to_hash(var_string);
 		});
-		//String one, two, three is returned as ['String one', 'String two', 'String three'] so this flattens the list
+		//String one, two, three is returned as [{type : 'String', name : 'one'}, {type : 'String', name : 'two'},  {type : 'String', name : 'three'}] within list so this flattens the list
 		var merged = [];
 		return merged.concat.apply(merged, hash_array);
 	}
 
-	//creates object by parsing string for name, datatype and visibility(unused for now)
+	//creates object by parsing string for name and data-type // resources (strings and arrays) have name stored as object['name'] while other objects (ui elements) have name stored as object['id'] (this is due to the differences in how the respective xml files are structured)
 	function var_string_to_hash(var_string){
 		var var_hash = {};
 		if(var_string.match(/^\/\//)){
