@@ -28,7 +28,7 @@
 					options.visibility = $scope.xml_opt_visibility;
 					var input_val = document.getElementById('xml_input').value;
 					try{
-						var inflated_xml = android_inflate_xml.inflate_xml(input_val, options);
+						var inflated_xml = android_inflate_xml.element_list_from_xml(input_val, options);
 						$scope.xml_output = inflated_xml.declaration + '\n\n' + inflated_xml.inflated_java;
 					}
 					catch(err){

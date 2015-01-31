@@ -1,5 +1,13 @@
-//used to turn string of java variable declarations into an array of objects
-//e.g. takes "public final String one; private static TextView two;" and returns [{type : 'TextView', id : 'one'}, {type : 'String', name : 'one'},  {type : 'String', name : 'two'},  {type : 'String', name : 'three'}]
+/***element_array_from_declaration is used to turn string of java variable declarations into an array of objects
+//e.g. takes "public final String one; private static TextView two;" and returns [{type : 'TextView', identifier : 'one'}, {type : 'String', identifier : 'one'},  {type : 'String', identifier : 'two'},  {type : 'String', identifier : 'three'}]
+
+//***the options object is used for formatting and code generation options
+//an empty object {} will work if you have no options
+//the full options example:
+	{
+	addButtonOnClickListener : true, //generates OnClickListener for button objects - values are true or false
+	}
+*/
 var java_declaration_parser = (function(){
 	//main driver function
 	return {
@@ -22,22 +30,23 @@ var java_declaration_parser = (function(){
 		var split_text = java_text.replace(/\/\*([^*]|[\r\n]|(\*+([^*\/]|[\r\n])))*\*+\//g, ' ').replace(/\/\/(.)*\n|\/\/(.)*$|\bstatic\b|\bfinal\b|\bpublic\b|\bprivate\b|\bprotected\b|^\s+/g, "").replace(/[\s]*;[^A-Z\/]*/gi, ';').replace(/\s+/g, ' ').split(';').filter(Boolean);
 		return split_text;
 	} 
-	//takes array of split java variable e.g. ['TextView one', 'String one, two, three'] and returns [{type : 'TextView', id : 'one'}, {type : 'String', name : 'one'},  {type : 'String', name : 'two'},  {type : 'String', name : 'three'}]
+	//takes array of split java variable e.g. ['TextView one', 'String one, two, three'] and returns [{type : 'TextView', identifier : 'one'}, {type : 'String', identifier : 'one'},  {type : 'String', identifier : 'two'},  {type : 'String', identifier : 'three'}]
 	function var_array_to_hash_array(var_array){
 		var hash_array = var_array.map(function(var_string){
 			return var_string_to_hash(var_string);
 		});
-		//String one, two, three is returned as [{type : 'String', name : 'one'}, {type : 'String', name : 'two'},  {type : 'String', name : 'three'}] within list so this flattens the list
+		//String one, two, three is returned as [{type : 'String', identifier : 'one'}, {type : 'String', identifier : 'two'},  {type : 'String', identifier : 'three'}] within list so this flattens the list
 		var merged = [];
 		return merged.concat.apply(merged, hash_array);
 	}
 
-	//creates object by parsing string for name and data-type // resources (strings and arrays) have name stored as object['name'] while other objects (ui elements) have name stored as object['id'] (this is due to the differences in how the respective xml files are structured)
+	//creates object by parsing string for name and data-type 
+	//e.g. 'String one' returns {'type' : 'String', 'identifier' : 'one'}
 	function var_string_to_hash(var_string){
 		var var_hash = {};
 		if(var_string.match(/^\/\//)){
 			var_hash.comment = true;
-			var_hash.name = var_string;
+			var_hash.identifier = var_string;
 			return var_hash;
 		}
 		var var_split = var_string.split(' ').filter(Boolean);
@@ -50,12 +59,11 @@ var java_declaration_parser = (function(){
 		if(var_split.length === 2){
 			//e.g. String name;
 			var_hash.type = var_split[0];
-			var identifier = get_identifier(var_hash.type);
-			var_hash[identifier] = var_split[1];
+			var_hash.identifier = var_split[1];
 		}
 		else{
 			var_hash.invalid = true;	
-			var_hash.name = var_string;
+			var_hash.identifier = var_string;
 		}
 
 		return var_hash;
@@ -74,19 +82,14 @@ var java_declaration_parser = (function(){
 		}
 		else{
 			var type = var_array[0];
-			var identifier =  get_identifier(type);
 			var var_hash_array = name_split.map(function(var_sub_array_element){
-				var var_obj = {'type': type};
-				var_obj[identifier] = var_sub_array_element;
-				return var_obj;	
+				return {
+					'type': type,
+					'identifier' : var_sub_array_element
+				};
 			});
 		}
 		return var_hash_array;
-	}
-
-	function get_identifier(type){
-		var identifier = type.match(/^String$|\[\]$/) ? 'name' : 'id';
-		return identifier;
 	}
 
 })();
