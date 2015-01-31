@@ -29,7 +29,7 @@ var android_inflate_xml = (function(){
 	};
 
 	function element_list_to_inflated_java(element_list, options){
-		var inflated_java = get_opening_comment(options);
+		var inflated_java = get_inflation_start_comment(options);
 		element_list.map(function(element){
 			if(element.invalid){
 				inflated_java = inflated_java + unpack_invalid_data(element, options);
@@ -52,7 +52,7 @@ var android_inflate_xml = (function(){
 		return inflated_java;
 	}
 	//used for constants
-	function get_opening_comment(options){
+	function get_inflation_start_comment(options){
 		return "//Inflate UI\n";
 	}
 	function get_string_from_layout_comment(options){
