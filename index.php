@@ -68,7 +68,7 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/layout.xml');
                             <input type="checkbox" id="xml_opt_convert_to_camelCase" ng-model="xml_options.camelCase" />
                             <label class="checkbox-inline" for="xml_opt_convert_to_camelCase">Convert to camelCase</label>
                         </div>
-                        <div class="checkbox">
+                        <div class="checkbox controls">
                             <input type="checkbox" id="xml_opt_declare_inline" ng-model="xml_options.declareInline" />
                             <label class="checkbox-inline" for="xml_opt_declare_inline">Declare inline</label>
                         </div>
@@ -108,13 +108,21 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/layout.xml');
                         </div>
                     </div>
                     <div class="control-panel">
-                        <div class="checkbox">
+                        <div class="checkbox controls">
+                            <input type="checkbox" id="var_declaration_opt_convert_to_camelCase" ng-model="var_declaration_options.camelCase" />
+                            <label class="checkbox-inline" for="var_declaration_opt_convert_to_camelCase">Convert to camelCase</label>
+                        </div>
+                        <div class="checkbox controls">
                             <input type="checkbox" id="var_declaration_opt_declare_inline" ng-model="var_declaration_options.declareInline" />
                             <label class="checkbox-inline" for="var_declaration_opt_declare_inline">Declare inline</label>
                         </div>
-                        <div class="checkbox">
+                        <div class="checkbox controls">
                             <input type="checkbox" id="var_declaration_opt_addButtonOnClickListener" ng-model="var_declaration_options.addButtonOnClickListener" />
                             <label class="checkbox-inline" for="var_declaration_opt_addButtonOnClickListener">Add Button OnClickListener</label>
+                        </div>
+                        <div class="checkbox controls">
+                            <input type="checkbox" id="var_declaration_opt_make_final" ng-model="var_declaration_options.makeFinal" />
+                            <label class="checkbox-inline" for="var_declaration_opt_make_final">Make Final</label>
                         </div>
                         <div class="button_group">
                             <button type="button" class='btn btn-primary' ng-disabled="!var_declaration_output" ng-click="selectResults()">Select Output</button>

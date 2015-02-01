@@ -13,7 +13,9 @@
 		};
 		$scope.var_declaration_options = {
 			declareInline : false,
-			addButtonOnClickListener : true
+			addButtonOnClickListener : true,
+			camelCase : false,
+			makeFinal : false
 		};
 		$scope.xml_output = '';
 		$scope.var_declaration_output = '';
