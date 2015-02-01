@@ -6,6 +6,7 @@
 //the full options example:
 	{
 	addButtonOnClickListener : true, //generates OnClickListener for button objects - values are true or false
+	declareInline : true //declares java inline e.g. returns final String one = etResources().getString(R.string.one);
 	}
 */
 var java_declaration_parser = (function(){

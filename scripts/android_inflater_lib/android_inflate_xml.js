@@ -13,6 +13,7 @@
 	makeFinal : true   //adds final to variable declaration - values are true or false
 	addButtonOnClickListener : true, //generates OnClickListener for button objects - values are true or false
 	visibility : 'private' //adds visibility to variable declaration - values are 'private', 'public', '' or null for no visibility
+	declareInline : true //declares java inline e.g. returns final String one = etResources().getString(R.string.one);
 	}
 */
 var android_inflate_xml = (function(){
@@ -28,29 +29,47 @@ var android_inflate_xml = (function(){
 		}
 	};
 
-	function element_list_to_inflated_java(element_list, options){
-		var inflated_java = get_inflation_start_comment(options);
+	function element_list_to_inflated_java_inline(element_list, options, parent_element_name){
+		var inflated_java = parent_element_name === 'resources' ? get_string_from_resources_comment(options) : get_inflation_start_comment(options);
 		element_list.map(function(element){
-			if(element.invalid){
-				inflated_java = inflated_java + unpack_invalid_data(element, options);
-			}
-			else if(element.type === 'String'){
-				inflated_java = inflated_java + unpack_res_string(element, options);
-			}
-			else if(element.type.match(/\[\]$/)){
-				inflated_java = inflated_java + unpack_res_array(element, options);
-			}
-			else{
-				inflated_java = inflated_java + unpack_ui_element(element, options);
-				if(element.type === 'Button' && options.addButtonOnClickListener){
-					inflated_java = inflated_java + '\n' + add_button_on_click_listener(element, options);
-				}
+			inflated_java = inflated_java + get_element_declaration_string(element, options).replace(';', '') + ' =' + get_unpacked_element_string(element, options).replace(/^.*=/, '');
+			if(element.type === 'Button' && options.addButtonOnClickListener){
+				inflated_java = inflated_java + '\n' + add_button_on_click_listener(element, options);
 			}
 			inflated_java = inflated_java + '\n';
 		});
 
 		return inflated_java;
 	}
+
+	function element_list_to_inflated_java(element_list, options){
+		var inflated_java = get_inflation_start_comment(options);
+		element_list.map(function(element){
+			inflated_java = inflated_java + get_unpacked_element_string(element, options);
+			if(element.type === 'Button' && options.addButtonOnClickListener){
+				inflated_java = inflated_java + '\n' + add_button_on_click_listener(element, options);
+			}
+			inflated_java = inflated_java + '\n';
+		});
+
+		return inflated_java;
+	}
+	//used by element_list_to_inflated_java and element_list_to_inflated_java_inline
+	function get_unpacked_element_string(element, options){
+		if(element.invalid){
+				return unpack_invalid_data(element, options);
+			}
+			else if(element.type === 'String'){
+				return unpack_res_string(element, options);
+			}
+			else if(element.type.match(/\[\]$/)){
+				return unpack_res_array(element, options);
+			}
+			else{
+				return unpack_ui_element(element, options);
+			}
+	}
+
 	//used for constants
 	function get_inflation_start_comment(options){
 		return "//Inflate UI\n";
@@ -91,8 +110,13 @@ var android_inflate_xml = (function(){
 	function inflated_xml(xmlStr, options){
 		var element_list = get_element_array(xmlStr, options);
 		var parent_element_name = get_doc_element_type(xmlStr);
-		var declaration_string = declaration_string_from_element_list(element_list, options, parent_element_name);
-		return {'declaration' : declaration_string, 'inflated_java' : element_list_to_inflated_java(element_list, options)};
+		if(options.declareInline){
+			return {'declaration' : element_list_to_inflated_java_inline(element_list, options, parent_element_name), 'inflated_java' : ''};
+		}
+		else{
+			var declaration_string = declaration_string_from_element_list(element_list, options, parent_element_name);
+			return {'declaration' : declaration_string, 'inflated_java' : element_list_to_inflated_java(element_list, options)};
+		}
 	}
 	//returns name of parent element of xml document
 	function get_doc_element_type(xmlStr){
@@ -123,12 +147,16 @@ var android_inflate_xml = (function(){
 	function declaration_string_from_element_list(element_list, options, parent_element_name){
 		var declaration_string = parent_element_name === 'resources' ? get_string_from_resources_comment(options) : get_string_from_layout_comment(options);
 		element_list.map(function(element){
-			var visibility = options.visibility ? options.visibility + ' ' : '';
-			var makeFinal = options.makeFinal ? 'final ' : '';
-			var formatted_identifier = options.camelCase ? element.identifier.to_camelCase() : element.identifier;
-			declaration_string = declaration_string + visibility + makeFinal + element.type + " " + formatted_identifier + ';\n';
+			declaration_string = declaration_string + get_element_declaration_string(element, options) + '\n';
 		});
 		return declaration_string;	
+	}
+	//used by element_list_to_inflated_java_inline and declaration_string_from_element_list
+	function get_element_declaration_string(element, options){
+		var visibility = options.visibility ? options.visibility + ' ' : '';
+		var makeFinal = options.makeFinal ? 'final ' : '';
+		var formatted_identifier = options.camelCase ? element.identifier.to_camelCase() : element.identifier;
+		return visibility + makeFinal + element.type + " " + formatted_identifier + ';';
 	}
 
 	//converts string-array to String[]
