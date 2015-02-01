@@ -21,7 +21,7 @@ var android_inflate_xml = (function(){
 			return inflated_xml(xmlStr, options);
 		},
 		'inflate_element_list' : function(element_list, options){
-			return element_list_to_inflated_java(element_list, options);
+			return options.declareInline ? element_list_to_inflated_java_inline(element_list, options, 'RelativeLayout') : element_list_to_inflated_java(element_list, options);
 		}
 	};
 
