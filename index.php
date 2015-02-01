@@ -24,7 +24,7 @@ $example_variable_declaration_short = 'String hello_world;';
 $example_xml_placeholder = 'Paste a layout or resources (e.g. strings.xml) xml file here';
 $example_xml_input = '<?xml version="1.0" encoding="utf-8"?><resources><string name="hello_world">Hello world</string></resources>';
 $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/layout.xml');
-$example_xml_input = file_get_contents(ROOT_PATH . 'test_data/resources.xml');
+//$example_xml_input = file_get_contents(ROOT_PATH . 'test_data/resources.xml');
 ?>
 
 <!DOCTYPE html>
@@ -68,6 +68,10 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/resources.xml');
                             <input type="checkbox" id="xml_opt_convert_to_camelCase" ng-model="xml_options.camelCase" />
                             <label class="checkbox-inline" for="xml_opt_convert_to_camelCase">Convert to camelCase</label>
                         </div>
+                        <div class="checkbox">
+                            <input type="checkbox" id="xml_opt_declare_inline" ng-model="xml_options.declareInline" />
+                            <label class="checkbox-inline" for="xml_opt_declare_inline">Declare inline</label>
+                        </div>
                         <div class="checkbox controls">
                             <input type="checkbox" id="xml_opt_addButtonOnClickListener" ng-model="xml_options.addButtonOnClickListener" />
                             <label class="checkbox-inline" for="xml_opt_addButtonOnClickListener">Add Button OnClickListener</label>
@@ -104,6 +108,10 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/resources.xml');
                         </div>
                     </div>
                     <div class="control-panel">
+                        <div class="checkbox">
+                            <input type="checkbox" id="var_declaration_opt_declare_inline" ng-model="var_declaration_options.declareInline" />
+                            <label class="checkbox-inline" for="var_declaration_opt_declare_inline">Declare inline</label>
+                        </div>
                         <div class="checkbox">
                             <input type="checkbox" id="var_declaration_opt_addButtonOnClickListener" ng-model="var_declaration_options.addButtonOnClickListener" />
                             <label class="checkbox-inline" for="var_declaration_opt_addButtonOnClickListener">Add Button OnClickListener</label>

@@ -6,11 +6,13 @@
   		$scope.xml_opt_visibility = this.visibility_options[0].value;
 		$scope.xml_options = {
 			camelCase : false,
+			declareInline : false,
 			visibility : $scope.xml_opt_visibility,
 			makeFinal : false,
-			addButtonOnClickListener : true
+			addButtonOnClickListener : false
 		};
 		$scope.var_declaration_options = {
+			declareInline : false,
 			addButtonOnClickListener : true
 		};
 		$scope.xml_output = '';
