@@ -18,10 +18,6 @@
 */
 var android_inflate_xml = (function(){
 	return {'element_list_from_xml' : function(xmlStr, options){
-			var error = {'declaration' : 'Paste into the input box an Android xml layout or resource file', 'inflated_java' : ''};
-			if(xmlStr.match(/^$|^[\s\t]+$/)){
-				return error;
-			}
 			return inflated_xml(xmlStr, options);
 		},
 		'inflate_element_list' : function(element_list, options){
