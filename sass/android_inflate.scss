@@ -4,7 +4,7 @@ $main_padding : 2em;
 $main_width : $input_width + $output_width + $main_padding;
 
 body{
-	font-family:"Helvetica Neue", sans-serif;
+	font-family: 'Helvetica Neue', Helvetica, 'Droid Sans', Arial, sans-serif;
 	font-size: 16px;
 }
 header{
@@ -12,6 +12,9 @@ header{
 }
 h1{
 	font-size: 3.157em;
+}
+.android_inflater_title{
+	font-family: 'Fredoka One', 'Arial Rounded MT Bold', Helvetica, 'Helvetica Neue', 'Droid Sans', Arial, sans-serif;
 }
 form{
 	text-align: left;

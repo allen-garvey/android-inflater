@@ -34,6 +34,7 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/layout.xml');
         <title>Android UI Inflater</title>
         <meta name="description" content=""/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link href='http://fonts.googleapis.com/css?family=Fredoka+One&text=AndroidIflate' rel='stylesheet' type='text/css' />
         <link rel="stylesheet" type="text/css" href="<?= BASE_URL?>stylesheets/bootstrap.min.css"/>
         <link rel="stylesheet" type="text/css" href="<?= BASE_URL?>stylesheets/bootstrap-theme.min.css"/>
         <link rel="stylesheet" type="text/css" href="<?= BASE_URL?>stylesheets/android_inflate.css"/>
@@ -43,7 +44,7 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/layout.xml');
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     </head>
     <body ng-controller="TabController as tabCtlr">
-        <header><h1>Android Inflater</h1></header>
+        <header><h1 class="android_inflater_title">Android Inflater</h1></header>
         <div>
             <ul class="nav nav-tabs">
                 <li ng-class="{'active' : showTab(0)}"><a href="#" ng-click="setTab(0)">From XML File</a></li>
