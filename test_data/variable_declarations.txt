@@ -1,0 +1,16 @@
+//example variable declarations
+
+//String from res file
+String hello_world;
+
+//array from res file
+public String[] android_version_nums;
+
+//TextView from layout.xml
+private TextView userInstructions;
+
+/*multiple variables*/
+String one, two, three;
+
+//button
+Button someButton;
