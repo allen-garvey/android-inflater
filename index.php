@@ -31,7 +31,7 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/layout.xml');
 <html ng-app="AndroidInflater"> 
     <head>
         <meta charset="utf-8"/>
-        <title>Android UI Inflater</title>
+        <title>Android Inflater</title>
         <meta name="description" content=""/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <link href='http://fonts.googleapis.com/css?family=Fredoka+One&text=AndroidIflate' rel='stylesheet' type='text/css' />
@@ -44,54 +44,64 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/layout.xml');
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     </head>
     <body ng-controller="TabController as tabCtlr">
-        <header><h1 class="android_inflater_title">Android Inflater</h1></header>
-        <div>
+        <header>
+            <div class="jumbotron">
+                <h1 class="android_inflater_title">Android Inflater</h1>
+                <p class="lead">An app to inflate your Android XML code.</p>
+                <p>Replace the example code with your own Android XML file and press inflate!</p>
+                <p class="hidden-xs"><a href="https://github.com/allen-garvey/android-inflater">View source on github</a></p>
+            </div>
             <ul class="nav nav-tabs">
                 <li ng-class="{'active' : showTab(0)}"><a href="#" ng-click="setTab(0)">From XML File</a></li>
                 <li ng-class="{'active' : showTab(1)}"><a href="#" ng-click="setTab(1)">From Variable Declaration</a></li>
             </ul>
-        </div>
-        <main>
+        </header>
+        <main class="container">
             <section ng-show="showTab(0)">
                 <form class='form-inline'>
-                    <div class="textareas">
-                        <div class="textarea_container input_container">
+                    <div class="row">
+                        <div class="col-lg-5">
                             <label for="xml_input">Android XML File</label>
                             <textarea id="xml_input" class="input" placeholder="<?php echo $example_xml_placeholder; ?>"><?php echo $example_xml_input; ?></textarea>
                         </div>
-                        <div class="textarea_container results_container">
+                        <div class="col-lg-7">
                             <label for="results2">Generated Code</label>
                             <textarea class="results" id="results2" wrap="off" ng-model='xml_output'></textarea>
                         </div>
                     </div>
-                    <div class="control-panel">
-                        <div class="checkbox controls">
-                            <input type="checkbox" id="xml_opt_convert_to_camelCase" ng-model="xml_options.camelCase" />
-                            <label class="checkbox-inline" for="xml_opt_convert_to_camelCase">Convert to camelCase</label>
+                    <div class="row">
+                        <div class="col-md-3 col-lg-push-9">
+                            <button type="button" class='btn btn-default btn-lg' ng-disabled="!xml_output" ng-click="selectResults()">Select Output</button>
+                            <button type="button" class='btn btn-success btn-lg' ng-click="inflate()">Inflate</button>
                         </div>
-                        <div class="checkbox controls">
-                            <input type="checkbox" id="xml_opt_declare_inline" ng-model="xml_options.declareInline" />
-                            <label class="checkbox-inline" for="xml_opt_declare_inline">Declare inline</label>
-                        </div>
-                        <div class="checkbox controls">
-                            <input type="checkbox" id="xml_opt_addButtonOnClickListener" ng-model="xml_options.addButtonOnClickListener" />
-                            <label class="checkbox-inline" for="xml_opt_addButtonOnClickListener">Add Button OnClickListener</label>
-                        </div>
-                        <div class="checkbox controls">
-                            <input type="checkbox" id="xml_opt_make_final" ng-model="xml_options.makeFinal" />
-                            <label class="checkbox-inline" for="xml_opt_make_final">Make Final</label>
-                        </div>
+                        <div class="col-md-9 col-lg-pull-3">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <input type="checkbox" class="inline" id="xml_opt_convert_to_camelCase" ng-model="xml_options.camelCase" />
+                                    <label class="inline" for="xml_opt_convert_to_camelCase">Convert to camelCase</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="checkbox" class="inline" id="xml_opt_declare_inline" ng-model="xml_options.declareInline" />
+                                    <label class="inline" for="xml_opt_declare_inline">Declare inline</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="checkbox" id="xml_opt_addButtonOnClickListener" ng-model="xml_options.addButtonOnClickListener" />
+                                    <label class="inline" for="xml_opt_addButtonOnClickListener">Add Button OnClickListener</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="checkbox" id="xml_opt_make_final" ng-model="xml_options.makeFinal" />
+                                    <label class="inline" for="xml_opt_make_final">Make Final</label>
+                                </div>
 
-                        <div class="radio-inline controls">
-                            <label class='label-inline'>Visibility</label>
-                            <label class="radio-inline"><input type="radio" name="xml_opt_visibility" ng-model="xml_opt_visibility" value="private">private</label>
-                            <label class="radio-inline"><input type="radio" name="xml_opt_visibility" ng-model="xml_opt_visibility" value="public">public</label>
-                            <label class="radio-inline"><input type="radio" name="xml_opt_visibility" ng-model="xml_opt_visibility" value="">none</label>
+                                <div class="col-md-4">
+                                    <label class='label-inline'>Visibility</label>
+                                    <label class="radio-inline"><input type="radio" name="xml_opt_visibility" ng-model="xml_opt_visibility" value="private">private</label>
+                                    <label class="radio-inline"><input type="radio" name="xml_opt_visibility" ng-model="xml_opt_visibility" value="public">public</label>
+                                    <label class="radio-inline"><input type="radio" name="xml_opt_visibility" ng-model="xml_opt_visibility" value="">none</label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="button_group">
-                            <button type="button" class='btn btn-primary' ng-disabled="!xml_output" ng-click="selectResults()">Select Output</button>
-                            <button type="button" class='btn btn-success' ng-click="inflate()">Inflate</button>
-                        </div>
+                        
                     </div>
                 </form>
             </section>
