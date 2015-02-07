@@ -125,7 +125,7 @@ var android_inflate_xml = (function(){
 		var parent_element_name = parsed_xml.documentElement.nodeName;
 		var node_list = parsed_xml.documentElement.childNodes;
 		var element_list = map_collection(node_list, function(node){
-			if(node.nodeType === Node.TEXT_NODE){return false;}
+			if(node.nodeType === Node.TEXT_NODE || node.nodeType === Node.COMMENT_NODE){return false;}
 			var type = parent_element_name === 'resources' && node.nodeName.match(/-array$/) ? xml_array_name_to_java(node.nodeName) : node.nodeName;
 			type = type === 'string' ? 'String' : type;
 			var id = node.getAttribute('android:id');
