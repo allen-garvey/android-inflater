@@ -1,0 +1,1 @@
+<script src="<?= BASE_URL ?>scripts/angular.min.js"></script>

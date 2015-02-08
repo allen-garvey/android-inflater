@@ -18,12 +18,11 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/layout.xml');
         <title>Android Inflater</title>
         <meta name="description" content=""/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <link href='http://fonts.googleapis.com/css?family=Fredoka+One&text=AndroidIflate' rel='stylesheet' type='text/css' />
-        <link rel="stylesheet" type="text/css" href="<?= BASE_URL?>stylesheets/bootstrap.min.css"/>
-        <link rel="stylesheet" type="text/css" href="<?= BASE_URL?>stylesheets/bootstrap-theme.min.css"/>
+        <link href='http://fonts.googleapis.com/css?family=Fredoka+One&amp;text=AndroidIflate' rel='stylesheet' type='text/css' />
+        <?php include(ROOT_PATH. 'inc/stylesheets_hosted.php') ?>
         <link rel="stylesheet" type="text/css" href="<?= BASE_URL?>stylesheets/android_inflate.css"/>
         <script src="<?= BASE_URL?>scripts/android_inflater_lib/android_inflater_util.js"></script>
-        <script src="<?= BASE_URL?>scripts/angular.min.js"></script>
+        <?php include(ROOT_PATH. 'inc/scripts_hosted.php') ?>
         <script src="<?= BASE_URL?>scripts/app.js"></script>
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     </head>
