@@ -1,3 +1,4 @@
+$base_url : "/android_inflater/";
 $main_padding : 1em;
 $android_green : #A4C639;
 $bootstrap_3_small_device_width : 768px;
@@ -22,8 +23,8 @@ main{
 }
 h1.android_inflater_title{
 	font-family: 'Fredoka One', 'Arial Rounded MT Bold', Helvetica, 'Helvetica Neue', 'Droid Sans', Arial, sans-serif;
-	// font-size: 4.208em;
 	margin-bottom: -.05em;
+	display: inline-block;
 }
 
 p.instructions{
@@ -39,6 +40,9 @@ p.lead{
 .jumbotron{
 	background-color: lighten($android_green, 10%);
 	padding-left: $main_padding;
+}
+.logo{
+	display : none;
 }
 .align_right{
 	float: none;
@@ -85,7 +89,19 @@ textarea{
 		font-size: 4.208em;
 		margin-bottom: -.1em;
 	}
-
+	//so that img floats correctly
+	.brand{
+		width: 700px;
+	}
+	.logo{
+		display: inline;
+		background-repeat : no-repeat;
+		background-image: image-url('#{$base_url}images/android_inflater_logo.png', false, false);
+		background-size: 100%;
+		width: 150px;
+		height: 150px;
+		float: right;
+	}
 	p.instructions{
 		font-size: 1em;
 	}

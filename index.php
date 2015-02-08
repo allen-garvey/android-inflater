@@ -29,10 +29,15 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/layout.xml');
     <body ng-controller="TabController as tabCtlr">
         <header>
             <div class="jumbotron">
-                <h1 class="android_inflater_title">Android Inflater</h1>
-                <p class="lead">Access your Android XML files in Java</p>
-                <p class="instructions">Replace the example with your Android layout or resource file and press inflate!
-                    <span class="github_link"><a href="https://github.com/allen-garvey/android-inflater">View source on github</a></span></p>
+                <div class="brand">
+                    <h1 class="android_inflater_title">Android Inflater</h1>
+                    <div class="logo"></div>
+                    <p class="lead">Access your Android XML files in Java</p>
+                    <p class="instructions">
+                        Replace the example with your Android layout or resource file and press inflate!
+                        <span class="github_link"><a href="https://github.com/allen-garvey/android-inflater">View source on github</a></span>
+                    </p>
+                </div>
             </div>
             <ul class="nav nav-tabs">
                 <li ng-class="{'active' : showTab(0)}"><a href="#" ng-click="setTab(0)">From XML File</a></li>
