@@ -30,8 +30,8 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/layout.xml');
         <header>
             <div class="jumbotron">
                 <h1 class="android_inflater_title">Android Inflater</h1>
-                <p class="lead">An app to inflate your Android XML files to Java code</p>
-                <p class="instructions">Replace the example with your own Android XML file and press inflate!
+                <p class="lead">Access your Android XML files in Java</p>
+                <p class="instructions">Replace the example with your Android layout or resource file and press inflate!
                     <span class="github_link"><a href="https://github.com/allen-garvey/android-inflater">View source on github</a></span></p>
             </div>
             <ul class="nav nav-tabs">
@@ -49,7 +49,7 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/layout.xml');
                         </div>
                         <div class="col-lg-7">
                             <label for="results2">Generated Code</label>
-                            <textarea class="results" id="results2" wrap="off" ng-model='xml_output'></textarea>
+                            <textarea class="results" id="results2" ng-model='xml_output'></textarea>
                         </div>
                     </div>
                     <div class="align_right">
@@ -89,11 +89,11 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/layout.xml');
                     <div class="row textareas">
                         <div class="col-lg-5">
                             <label for="java_input">Android Variable Declarations</label>
-                    		<textarea id="java_input" class="input" wrap="off" placeholder="<?php echo $example_variable_declaration_short; ?>"><?php echo $example_variable_declaration; ?></textarea>
+                    		<textarea id="java_input" class="input" placeholder="<?php echo $example_variable_declaration_short; ?>"><?php echo $example_variable_declaration; ?></textarea>
                         </div>
                         <div class="col-lg-7">
                             <label for="results">Generated Code</label>
-                    		<textarea class="results" id="results" wrap="off" ng-model='var_declaration_output'></textarea>
+                    		<textarea class="results" id="results" ng-model='var_declaration_output'></textarea>
                         </div>
                     </div>
                     <div class="align_right">
