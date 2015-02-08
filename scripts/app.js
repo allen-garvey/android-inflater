@@ -42,7 +42,7 @@
 							$scope.xml_output = inflated_xml.declaration + '\n\n' + inflated_xml.inflated_java;
 						}
 						catch(err){
-							$scope.xml_output = input_val + " could not be parsed.";	
+							$scope.xml_output = "Could not be parsed:\n" + input_val;	
 						}	
 					}
 				}

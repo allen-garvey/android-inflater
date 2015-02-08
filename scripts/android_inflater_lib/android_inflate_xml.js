@@ -71,10 +71,10 @@ var android_inflate_xml = (function(){
 		return "//Inflate UI\n";
 	}
 	function get_string_from_layout_comment(options){
-		return '//declare ui elements\n';
+		return '//Declare UI elements\n';
 	}
 	function get_string_from_resources_comment(options){
-		return '//declare resources\n';
+		return '//Declare resources\n';
 	}
 	//methods unpack elements based on type
 	function unpack_ui_element(element, options){
