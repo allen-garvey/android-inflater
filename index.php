@@ -45,11 +45,11 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/layout.xml');
                     <div class="row textareas">
                         <div class="col-lg-5">
                             <label for="xml_input">Android XML File</label>
-                            <textarea id="xml_input" class="input" placeholder="<?php echo $example_xml_placeholder; ?>"><?php echo $example_xml_input; ?></textarea>
+                            <textarea id="xml_input" placeholder="<?php echo $example_xml_placeholder; ?>"><?php echo $example_xml_input; ?></textarea>
                         </div>
                         <div class="col-lg-7">
-                            <label for="results2">Generated Code</label>
-                            <textarea class="results" id="results2" ng-model='xml_output'></textarea>
+                            <label for="xml_ouput">Generated Code</label>
+                            <textarea id="xml_output" ng-model='xml_output'></textarea>
                         </div>
                     </div>
                     <div class="align_right">
@@ -92,8 +92,8 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/layout.xml');
                     		<textarea id="java_input" class="input" placeholder="<?php echo $example_variable_declaration_short; ?>"><?php echo $example_variable_declaration; ?></textarea>
                         </div>
                         <div class="col-lg-7">
-                            <label for="results">Generated Code</label>
-                    		<textarea class="results" id="results" ng-model='var_declaration_output'></textarea>
+                            <label for="java_output">Generated Code</label>
+                    		<textarea id="java_output" ng-model='var_declaration_output'></textarea>
                         </div>
                     </div>
                     <div class="align_right">

@@ -64,23 +64,16 @@
 			};
 		
 		$scope.selectResults = function(){
-				if($scope.currentTab === 0)  {
-					select_textarea('results2');
-				}
-				else{
-					select_textarea('results');
-				}
+				var id_to_by_selected = $scope.currentTab === 0 ? 'xml_output' : 'java_output';
+				tabCtlr.select_textarea(id_to_by_selected);
 			};
 		this.selectInput = function(){
-				if($scope.currentTab === 0)  {
-					var id_to_by_selected = 'xml_input';
-				}
-				else{
-					var id_to_by_selected = 'java_input';
-				}
-				document.getElementById(id_to_by_selected).select();
+				var id_to_by_selected = $scope.currentTab === 0 ? 'xml_input' : 'java_input';
+				tabCtlr.select_textarea(id_to_by_selected);
 			};
-
+		this.select_textarea = function(id_to_by_selected){
+			document.getElementById(id_to_by_selected).select();
+		};
 		this.init = function(){
 			tabCtlr.selectInput();
 		};
