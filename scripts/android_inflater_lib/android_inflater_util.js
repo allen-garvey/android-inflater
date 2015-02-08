@@ -33,10 +33,6 @@ function map_collection(collection, callback){
     return newArray;
 }
 
-function select_textarea(id_to_by_selected){
-	document.getElementById(id_to_by_selected).select();
-}
-
 //returns cross browser compatible (back to i.e. 6) xml dom object from xml string
 var parseXML = (function(){
 

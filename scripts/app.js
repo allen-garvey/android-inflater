@@ -1,6 +1,7 @@
 (function(){
 	var app = angular.module('AndroidInflater', []);
 	app.controller('TabController', ['$scope', function($scope) {
+		var tabCtlr = this;
 		$scope.currentTab = 0;
 		this.visibility_options = [{label : 'private', value : 'private'}, {label : 'public', value : 'public'}, {label : 'none', value : ''}];
   		$scope.xml_opt_visibility = this.visibility_options[0].value;
@@ -22,8 +23,11 @@
 
 		$scope.setTab = function(num){
 			$scope.currentTab = num;
-			$scope.selectInput();
-			$scope.is_output_data = num === 0 ? $scope.xml_output : $scope.var_declaration_output;
+			var output_data = num === 0 ? $scope.xml_output : $scope.var_declaration_output;
+			if(!output_data){
+				$scope.$apply();
+				tabCtlr.selectInput();
+			}
 		};
 		$scope.showTab = function(num){return num === $scope.currentTab;};
 		$scope.inflate = function(input_id, output_id) {
@@ -67,14 +71,20 @@
 					select_textarea('results');
 				}
 			};
-		$scope.selectInput = function(){
+		this.selectInput = function(){
 				if($scope.currentTab === 0)  {
-					select_textarea('xml_input');
+					var id_to_by_selected = 'xml_input';
 				}
 				else{
-					select_textarea('java_input');
+					var id_to_by_selected = 'java_input';
 				}
+				document.getElementById(id_to_by_selected).select();
 			};
+
+		this.init = function(){
+			tabCtlr.selectInput();
+		};
+		this.init();
 
 
 	}]);

@@ -124,8 +124,5 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/layout.xml');
         </main>
     	<script type="text/javascript" src="<?= BASE_URL?>scripts/android_inflater_lib/java_declaration_parser.js"></script>
         <script type="text/javascript" src="<?= BASE_URL?>scripts/android_inflater_lib/android_inflate_xml.js"></script>
-        <script type="text/javascript">
-            select_textarea('xml_input');
-        </script>
     </body>
 </html>
