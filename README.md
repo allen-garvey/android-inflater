@@ -1,6 +1,6 @@
 #Android Inflater
 
-Android Inflater is a javascript library that generates Java code either from layout or resource XML files or Java variable declarations that reference those XML files.
+Android Inflater is a Javascript library that generates Java code either from Android layout or resource XML files or Java variable declarations that reference the names or ids of entities in those XML files.
 
 ##Technical Specifications
 
