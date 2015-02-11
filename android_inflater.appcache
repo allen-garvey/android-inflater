@@ -1,12 +1,17 @@
 CACHE MANIFEST
-# 2015-02-08 v1.0.0
+# 2015-02-10 v1.2.1
 
 CACHE:
-/images/android_inflater_logo.png
-index.php
+images/android_inflater_logo.png
+images/android_inflater_logo_favicon.ico
 scripts/
+index.php
 stylesheets/android_inflate.css
 scripts/app.js
 scripts/android_inflater_lib/android_inflate_xml.js
 scripts/android_inflater_lib/android_inflater_util.js
 scripts/android_inflater_lib/java_declaration_parser.js
+http://fonts.gstatic.com/s/fredokaone/v4/SL0aFUFfkFMMdariYQ3_YSwlidHJgAgmTjOEEzwu1L8.ttf
+
+NETWORK:
+*
