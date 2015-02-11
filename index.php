@@ -17,7 +17,9 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/layout.xml');
     <head>
         <meta charset="utf-8"/>
         <title>Android Inflater</title>
-        <meta name="description" content=""/>
+        <meta name="description" content="A web app for Android developers to automatically generate Java code from Android XML files"/>
+        <meta name="keywords" content="android, code generator, android ui inflation, xml, java, javascript, angular, bootstrap"/>
+        <meta name="author" content="Allen Garvey"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <link href='http://fonts.googleapis.com/css?family=Fredoka+One&amp;text=AndroidIflate' rel='stylesheet' type='text/css' />
         <?php include(ROOT_PATH. 'inc/stylesheets_hosted.php') ?>
@@ -25,7 +27,8 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/layout.xml');
         <script src="<?= BASE_URL?>scripts/android_inflater_lib/android_inflater_util.js"></script>
         <?php include(ROOT_PATH. 'inc/scripts_hosted.php') ?>
         <script src="<?= BASE_URL?>scripts/app.js"></script>
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link rel="apple-touch-icon" sizes="150x150" href="<?= BASE_URL?>images/android_inflater_logo.png" />
+        <link rel="shortcut icon" href="<?= BASE_URL?>images/android_inflater_logo_favicon.ico" />
     </head>
     <body ng-controller="TabController as tabCtlr">
         <header>
@@ -33,7 +36,7 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/layout.xml');
                 <div class="brand">
                     <h1 class="android_inflater_title">Android Inflater</h1>
                     <div class="logo"></div>
-                    <p class="lead">Access your Android XML files in Java</p>
+                    <p class="lead">Automatically generate Java from your XML</p>
                     <p class="instructions">
                         Replace the example with your Android layout or resource file and press inflate!
                         <span class="github_link"><a href="https://github.com/allen-garvey/android-inflater">View source on github</a></span>
