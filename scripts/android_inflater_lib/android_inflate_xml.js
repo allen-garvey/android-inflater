@@ -58,6 +58,15 @@ var android_inflate_xml = (function(){
 			else if(element.type === 'String'){
 				return unpack_res_string(element, options);
 			}
+			else if(element.type === 'int'){
+				return unpack_res_int(element, options);
+			}
+			else if(element.type === 'bool'){
+				return unpack_res_bool(element, options);
+			}
+			else if(element.type === 'double'){
+				return unpack_res_double(element, options);
+			}
 			else if(element.type.match(/\[\]$/)){
 				return unpack_res_array(element, options);
 			}
@@ -76,32 +85,45 @@ var android_inflate_xml = (function(){
 	function get_string_from_resources_comment(options){
 		return '//Declare resources\n';
 	}
+	function get_formatted_name(element, options){
+		var formatted_name = options.camelCase ? element.identifier.to_camelCase() : element.identifier;
+		return formatted_name;
+	}
 	//methods unpack elements based on type
 	function unpack_ui_element(element, options){
-		var formatted_name = options.camelCase ? element.identifier.to_camelCase() : element.identifier;
-		return formatted_name + " = (" + element.type + ") findViewById(R.id." + element.identifier + ");";
+		return get_formatted_name(element, options) + " = (" + element.type + ") findViewById(R.id." + element.identifier + ");";
 	}
 
 	function add_button_on_click_listener(element, options){
-		var formatted_name = options.camelCase ? element.identifier.to_camelCase() : element.identifier;
-		return formatted_name + '.setOnClickListener(new View.OnClickListener() {\n\tpublic void onClick(View v) {\n\t\t// Perform action on click\n\t}\n});';
+		return get_formatted_name(element, options) + '.setOnClickListener(new View.OnClickListener() {\n\tpublic void onClick(View v) {\n\t\t// Perform action on click\n\t}\n});';
 	}
 
 	function unpack_res_string(element, options){
-		var formatted_name = options.camelCase ? element.identifier.to_camelCase() : element.identifier;
-		return formatted_name + " = getResources().getString(R.string." + element.identifier + ");";
+		return get_formatted_name(element, options) + " = getResources().getString(R.string." + element.identifier + ");";
+	}
+	//there is no res double type so we have to convert it from a string
+	function unpack_res_double(element, options){
+		return get_formatted_name(element, options) + " = Double.parseDouble(getResources().getString(R.string." + element.identifier + "));";
+	}
+
+	function unpack_res_int(element, options){
+		return get_formatted_name(element, options) + " = getResources().getInteger(R.integer." + element.identifier +  ");";
+	}
+
+	function unpack_res_bool(element, options){
+		return get_formatted_name(element, options) + " = getResources().getBoolean(R.bool." + element.identifier +  ");";
 	}
 
 	function unpack_res_array(element, options){
 		var var_type = element.type.replace("[]", "");
 		var_type = var_type.capitalize();
-		var formatted_name = options.camelCase ? element.identifier.to_camelCase() : element.identifier;
-		return formatted_name + " = getResources().get" + var_type + "Array(R.array." + element.identifier + ");";
+		return get_formatted_name(element, options) + " = getResources().get" + var_type + "Array(R.array." + element.identifier + ");";
 	}
 
 	function unpack_invalid_data(element, options){
 		return "//" + element.identifier + " is not a valid declaration";
 	}
+
 	//takes android xml string and returns object with variable declarations and full java code inflation
 	function inflated_xml(xmlStr, options){
 		var element_list = get_element_array(xmlStr, options);
@@ -125,9 +147,19 @@ var android_inflate_xml = (function(){
 		var parent_element_name = parsed_xml.documentElement.nodeName;
 		var node_list = parsed_xml.documentElement.childNodes;
 		var element_list = map_collection(node_list, function(node){
-			if(node.nodeType === Node.TEXT_NODE || node.nodeType === Node.COMMENT_NODE){return false;}
-			var type = parent_element_name === 'resources' && node.nodeName.match(/-array$/) ? xml_array_name_to_java(node.nodeName) : node.nodeName;
-			type = type === 'string' ? 'String' : type;
+			if(node.nodeType === Node.TEXT_NODE || node.nodeType === Node.COMMENT_NODE){return false;} //we don't want comments or text nodes inside parent node
+			var type = parent_element_name === 'resources' && node.nodeName.match(/-array$/) ? xml_array_name_to_java(node.nodeName) : node.nodeName; //formats array name correctly if element is array
+			//format type because xml resources store type as lowercase
+			switch(type){
+				case 'string':
+					type = 'String';
+					break;
+				case 'integer':
+					type = 'int';
+					break;
+				default:
+					break;
+			}
 			var id = node.getAttribute('android:id');
 			var formatted_id = id ? id.replace(/@.*\//,'') : '';
 			var name = node.getAttribute('name');
