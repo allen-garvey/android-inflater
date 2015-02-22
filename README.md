@@ -8,8 +8,7 @@ Android Inflater is written in pure javascript and requires no external dependen
 
 ##TODO
 
-* Add support for nested layouts
-* Support different types of layouts
+* General testing and bug fixes
 
 ##License
 
