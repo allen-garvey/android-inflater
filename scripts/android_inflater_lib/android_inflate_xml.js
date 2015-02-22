@@ -58,7 +58,9 @@ var android_inflate_xml = (function(){
 			else if(element.type === 'String'){
 				return unpack_res_string(element, options);
 			}
-			else if(element.type === 'int'){
+			else if(element.type === 'int'
+
+				){
 				return unpack_res_int(element, options);
 			}
 			else if(element.type === 'bool'){
@@ -146,31 +148,52 @@ var android_inflate_xml = (function(){
 		var parsed_xml = parseXML(xmlStr);
 		var parent_element_name = parsed_xml.documentElement.nodeName;
 		var node_list = parsed_xml.documentElement.childNodes;
-		var element_list = map_collection(node_list, function(node){
-			if(node.nodeType === Node.TEXT_NODE || node.nodeType === Node.COMMENT_NODE){return false;} //we don't want comments or text nodes inside parent node
-			var type = parent_element_name === 'resources' && node.nodeName.match(/-array$/) ? xml_array_name_to_java(node.nodeName) : node.nodeName; //formats array name correctly if element is array
-			//format type because xml resources store type as lowercase
-			switch(type){
-				case 'string':
-					type = 'String';
-					break;
-				case 'integer':
-					type = 'int';
-					break;
-				default:
-					break;
-			}
-			var id = node.getAttribute('android:id');
-			var formatted_id = id ? id.replace(/@.*\//,'') : '';
-			var name = node.getAttribute('name');
-			var identifier = name || formatted_id;
-			return {
-				'type' : type,
-				'identifier' : identifier
-			};
-		}).filter(Boolean);
+		var element_list = [];
+		map_collection(node_list, function(node){
+			create_element_array_recursive(node, element_list, parent_element_name);
+		});
+		element_list.filter(Boolean); //just to be sure there is no garbage in array
 		return element_list;
 	}
+	//creates elements array from child nodes by pushing to array on heap -  adds all child nodes of the child nodes using recursion
+	function create_element_array_recursive(node, master_array, parent_element_name){
+		if(node.nodeType === Node.TEXT_NODE || node.nodeType === Node.COMMENT_NODE){return;} //we don't want comments or text nodes inside parent node
+		//recursively get child nodes
+		if(node.childNodes){
+			map_collection(node.childNodes, function(node1){create_element_array_recursive(node1, master_array, parent_element_name)});
+		}
+		var type = parent_element_name === 'resources' && node.nodeName.match(/-array$/) ? xml_array_name_to_java(node.nodeName) : node.nodeName; //formats array name correctly if element is array
+		//format type because xml resources store type as lowercase
+		switch(type){
+			case 'string':
+				type = 'String';
+				break;
+			case 'integer':
+				type = 'int';
+				break;
+			default:
+				break;
+		}
+		//test for valid android elements
+		try{
+			var id = node.getAttribute('android:id'); 
+			if(!id){
+				throw "no id - not valid android xml element";
+			}
+		}
+		catch(err){
+			return;
+		}
+		//ui elements use id while resources use name
+		var formatted_id = id ? id.replace(/@.*\//,'') : '';
+		var name = node.getAttribute('name');
+		var identifier = name || formatted_id;
+		master_array.push({
+			'type' : type,
+			'identifier' : identifier
+		});
+	}
+
 	//returns string of java variable declarations from element list
 	function declaration_string_from_element_list(element_list, options, parent_element_name){
 		var declaration_string = parent_element_name === 'resources' ? get_string_from_resources_comment(options) : get_string_from_layout_comment(options);
