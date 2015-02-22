@@ -13,7 +13,7 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/layout.xml');
 ?>
 
 <!DOCTYPE html>
-<html manifest="android_inflater.appcache" ng-app="AndroidInflater"> 
+<html manifest="android_inflater.appcache" ng-app="AndroidInflater">
     <head>
         <meta charset="utf-8"/>
         <title>Android Inflater</title>
