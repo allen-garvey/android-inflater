@@ -7,13 +7,12 @@ $example_variable_declaration = file_get_contents(ROOT_PATH . 'test_data/variabl
 $example_variable_declaration_short = 'String hello_world;';
 
 $example_xml_placeholder = 'Paste a layout or resources (e.g. strings.xml) xml file here';
-$example_xml_input = '<?xml version="1.0" encoding="utf-8"?><resources><string name="hello_world">Hello world</string></resources>';
 $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/layout.xml');
 //$example_xml_input = file_get_contents(ROOT_PATH . 'test_data/resources.xml');
 ?>
 
 <!DOCTYPE html>
-<html manifest="android_inflater.appcache" ng-app="AndroidInflater">
+<html ng-app="AndroidInflater">
     <head>
         <meta charset="utf-8"/>
         <title>Android Inflater</title>
