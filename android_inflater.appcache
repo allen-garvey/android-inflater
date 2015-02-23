@@ -1,8 +1,8 @@
 CACHE MANIFEST
-# 2015-02-22 v1.5.0
+# 2015-02-22 v1.6.0
 
 CACHE:
-images/android_inflater_logo.png
+http://www.allengarvey.com/code/android-inflater/images/android_inflater_logo.png
 images/android_inflater_logo_favicon.ico
 scripts/
 index.php
