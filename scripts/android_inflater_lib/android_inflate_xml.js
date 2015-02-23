@@ -155,13 +155,9 @@ var android_inflate_xml = (function(){
 		element_list.filter(Boolean); //just to be sure there is no garbage in array
 		return element_list;
 	}
-	//creates elements array from child nodes by pushing to array on heap -  adds all child nodes of the child nodes using recursion
+	//creates elements array from child nodes by pushing to reference to array passed into function (master_array) -  adds all child nodes of the child nodes using recursion
 	function create_element_array_recursive(node, master_array, parent_element_name){
 		if(node.nodeType === Node.TEXT_NODE || node.nodeType === Node.COMMENT_NODE){return;} //we don't want comments or text nodes inside parent node
-		//recursively get child nodes
-		if(node.childNodes){
-			map_collection(node.childNodes, function(node1){create_element_array_recursive(node1, master_array, parent_element_name)});
-		}
 		var type = parent_element_name === 'resources' && node.nodeName.match(/-array$/) ? xml_array_name_to_java(node.nodeName) : node.nodeName; //formats array name correctly if element is array
 		//format type because xml resources store type as lowercase
 		switch(type){
@@ -176,9 +172,10 @@ var android_inflate_xml = (function(){
 		}
 		//test for valid android elements
 		try{
-			var id = node.getAttribute('android:id'); 
-			if(!id){
-				throw "no id - not valid android xml element";
+			var id = node.getAttribute('android:id');
+			var name = node.getAttribute('name');
+			if(!(id || name)){
+				throw "no id or name - not valid android xml element";
 			}
 		}
 		catch(err){
@@ -186,12 +183,15 @@ var android_inflate_xml = (function(){
 		}
 		//ui elements use id while resources use name
 		var formatted_id = id ? id.replace(/@.*\//,'') : '';
-		var name = node.getAttribute('name');
 		var identifier = name || formatted_id;
 		master_array.push({
 			'type' : type,
 			'identifier' : identifier
 		});
+		//recursively get and push child nodes
+		if(node.childNodes){
+			map_collection(node.childNodes, function(node1){create_element_array_recursive(node1, master_array, parent_element_name)});
+		}
 	}
 
 	//returns string of java variable declarations from element list
