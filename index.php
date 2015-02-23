@@ -72,7 +72,7 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/layout.xml');
                             <label for="xml_opt_convert_to_camelCase">Convert to camelCase</label>
                         </div>
                         <div class="control_inline">
-                            <input type="checkbox" id="xml_opt_declare_inline" ng-model="xml_options.declareInline" />
+                            <input type="checkbox" id="xml_opt_declare_inline" ng-model="xml_options.declareInline" ng-change="inline_checked_action()" />
                             <label for="xml_opt_declare_inline">Declare inline</label>
                         </div>
                         <div class="control_inline">
@@ -87,7 +87,7 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/layout.xml');
                             <label class='label-inline'>Visibility</label>
                             <label class="radio-inline"><input type="radio" name="xml_opt_visibility" ng-model="xml_opt_visibility" value="private">private</label>
                             <label class="radio-inline"><input type="radio" name="xml_opt_visibility" ng-model="xml_opt_visibility" value="public">public</label>
-                            <label class="radio-inline"><input type="radio" name="xml_opt_visibility" ng-model="xml_opt_visibility" value="">none</label>
+                            <label class="radio-inline"><input type="radio" name="xml_opt_visibility" ng-model="xml_opt_visibility" value="">default</label>
                         </div>
                     </div>
                 </form>

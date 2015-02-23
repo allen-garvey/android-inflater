@@ -62,6 +62,13 @@
 					}
 				}
 			};
+
+		$scope.inline_checked_action = function(){
+			//set visibility options to none if declare inline is selected on xml tab since that is most likely what the user wants
+			if($scope.xml_options.declareInline){
+				$scope.xml_opt_visibility = '';
+			}
+		};
 		
 		$scope.selectResults = function(){
 				var id_to_by_selected = $scope.currentTab === 0 ? 'xml_output' : 'java_output';
