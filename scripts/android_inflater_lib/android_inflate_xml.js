@@ -170,6 +170,10 @@ var android_inflate_xml = (function(){
 			default:
 				break;
 		}
+		//recursively get and push child nodes
+		if(node.childNodes){
+			map_collection(node.childNodes, function(node1){create_element_array_recursive(node1, master_array, parent_element_name)});
+		}
 		//test for valid android elements
 		try{
 			var id = node.getAttribute('android:id');
@@ -188,10 +192,6 @@ var android_inflate_xml = (function(){
 			'type' : type,
 			'identifier' : identifier
 		});
-		//recursively get and push child nodes
-		if(node.childNodes){
-			map_collection(node.childNodes, function(node1){create_element_array_recursive(node1, master_array, parent_element_name)});
-		}
 	}
 
 	//returns string of java variable declarations from element list
