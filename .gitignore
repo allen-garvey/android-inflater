@@ -11,3 +11,6 @@
 .sass-cache
 .sass-cache/*
 /inc/config_web.php
+node_modules/*
+scripts/*.js
+scripts/*.map
