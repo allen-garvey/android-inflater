@@ -23,9 +23,6 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/layout.xml');
         <link href='http://fonts.googleapis.com/css?family=Fredoka+One&amp;text=AndroidIflate' rel='stylesheet' type='text/css' />
         <?php include(ROOT_PATH. 'inc/stylesheets_hosted.php') ?>
         <link rel="stylesheet" type="text/css" href="<?= BASE_URL?>stylesheets/android_inflate.css"/>
-        <script src="<?= BASE_URL?>scripts/android_inflater_lib/android_inflater_util.js"></script>
-        <?php include(ROOT_PATH. 'inc/scripts_hosted.php') ?>
-        <script src="<?= BASE_URL?>scripts/app.js"></script>
         <link rel="apple-touch-icon" sizes="150x150" href="<?= BASE_URL?>images/android_inflater_logo.png" />
         <link rel="shortcut icon" href="<?= BASE_URL?>images/android_inflater_logo_favicon.ico" />
     </head>
@@ -130,7 +127,7 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/layout.xml');
             </section>
             
         </main>
-    	<script type="text/javascript" src="<?= BASE_URL?>scripts/android_inflater_lib/java_declaration_parser.js"></script>
-        <script type="text/javascript" src="<?= BASE_URL?>scripts/android_inflater_lib/android_inflate_xml.js"></script>
+        <?php include(ROOT_PATH. 'inc/scripts_hosted.php') ?>
+        <script type="text/javascript" src="<?= BASE_URL?>scripts/app.min.js"></script>
     </body>
 </html>
