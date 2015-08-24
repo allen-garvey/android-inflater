@@ -9,7 +9,6 @@ String.prototype.capitalize = String.prototype.capitalize || function(){
 }
 //converts string with underscores to camelCase. string is the same if the string doesn't contain underscores or only contains a leading underscore e.g. _hello
 String.prototype.to_camelCase = String.prototype.convert_to_camelCase || function(){
-    if(!this.match(/.+_/)){return this;}
     var split = this.split('_').filter(Boolean);
     var len = split.length;
     var camelCaseString = '';
