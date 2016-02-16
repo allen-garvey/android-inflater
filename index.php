@@ -20,7 +20,7 @@ $example_xml_input = file_get_contents(ROOT_PATH . 'test_data/layout.xml');
         <meta name="keywords" content="android, code generator, android ui inflation, xml, java, javascript, angular, bootstrap"/>
         <meta name="author" content="Allen Garvey"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <link href='http://fonts.googleapis.com/css?family=Fredoka+One&amp;text=AndroidIflate' rel='stylesheet' type='text/css' />
+        <link href='//fonts.googleapis.com/css?family=Fredoka+One&amp;text=AndroidIflate' rel='stylesheet' type='text/css' />
         <?php include(ROOT_PATH. 'inc/stylesheets_hosted.php') ?>
         <link rel="stylesheet" type="text/css" href="<?= BASE_URL?>stylesheets/android_inflate.css"/>
         <link rel="apple-touch-icon" sizes="150x150" href="<?= BASE_URL?>images/android_inflater_logo.png" />
