@@ -1,16 +1,9 @@
 .DS_Store
 *.sublime-project
 *.sublime-workspace
-*.JPG
-*.jpg
-*.jpeg
-*.png
-*.PNG
 *.ai
 **/.sass-cache/*
 .sass-cache
 .sass-cache/*
 /inc/config_web.php
 node_modules/*
-scripts/*.js
-scripts/*.map
