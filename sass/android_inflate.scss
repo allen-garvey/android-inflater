@@ -1,5 +1,6 @@
 $base_url : "/android-inflater/";
 $base_url : "http://allengarvey.com/code/android-inflater/";
+$image_url : "../images/";
 $main_padding : 1em;
 $android_green : #A4C639;
 $bootstrap_3_small_device_width : 768px;
@@ -97,7 +98,7 @@ textarea{
 	.logo{
 		display: inline;
 		background-repeat : no-repeat;
-		background-image: image-url('#{$base_url}images/android_inflater_logo.png', false, false);
+		background-image: image-url('#{$images_url}android_inflater_logo.png', false, false);
 		background-size: 100%;
 		width: 150px;
 		height: 150px;
