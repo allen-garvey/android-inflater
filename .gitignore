@@ -1,11 +1,6 @@
 .DS_Store
 *.sublime-project
 *.sublime-workspace
-*.JPG
-*.jpg
-*.jpeg
-*.png
-*.PNG
 *.ai
 **/.sass-cache/*
 .sass-cache
